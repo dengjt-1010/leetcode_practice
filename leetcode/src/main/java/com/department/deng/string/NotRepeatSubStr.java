@@ -11,16 +11,41 @@ public class NotRepeatSubStr {
      * 给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度
      */
     public int lengthOfLongestSubstring(String s) {
-        int i=0,j=0,max=0,len=s.length();
-        Set<Character> set=new HashSet<Character>();
-        while(i<len&&j<len){
-            if(!set.contains(s.charAt(j))){
-                set.add(s.charAt(j++));
-                max=Math.max(max,j-i);
-            }else{
-                set.remove(s.charAt(i++));
+
+        if (s == null || s == "") {
+            return 0;
+        } else if (s.length() == 1) {
+            return 1;
+        }
+
+        int max = 0;
+        int len = s.length();
+
+        for (int i = 0; i < len; i++) {
+            int start = i;
+            int end = start;
+            Set<Character> set = new HashSet<Character>();
+            int curr = 0;
+            while (end != len) {
+
+                if (!set.contains(s.charAt(end))) {
+                    set.add(s.charAt(end));
+                    curr++;
+                    end++;
+                } else {
+                    break;
+                }
+            }
+            if (curr > max) {
+                max = curr;
             }
         }
         return max;
+    }
+
+    public static void main(String[] args) {
+        NotRepeatSubStr notRepeatSubStr = new NotRepeatSubStr();
+
+        notRepeatSubStr.lengthOfLongestSubstring("au");
     }
 }
