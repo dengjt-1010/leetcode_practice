@@ -20,13 +20,13 @@ public class IsHuiWenNum {
 
 
         int reverse = 0;
-
-        while (x > reverse) {
-            reverse = reverse * 10 + x % 10;
-            x = x / 10;
+        int temp = x;
+        while (x > 0) {
+            reverse = reverse * 10 + temp % 10;
+            temp = temp / 10;
         }
 
-        return x == reverse || reverse / 10 == x;
+        return x == reverse;
 
     }
 }
