@@ -1,5 +1,6 @@
 package com.department.deng.array;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,31 +12,59 @@ import java.util.Map;
  你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。
  */
 public class TwoNumSum {
-        public int[] twoSum(int[] nums, int target) {
-            Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+    public int[] twoSum(int[] nums, int target) {
+        Map<Integer, Integer> map = new HashMap<Integer, Integer>();
 
-            for (int i = 0; i < nums.length; i++) {
-                if (map.keySet().contains(nums[i])) {
-                    return new int[]{map.get(nums[i]), i};
-                } else {
-                    map.put(target - nums[i], i);
-                }
+        for (int i = 0; i < nums.length; i++) {
+            if (map.keySet().contains(nums[i])) {
+                return new int[]{map.get(nums[i]), i};
+            } else {
+                map.put(target - nums[i], i);
             }
-            throw new IllegalArgumentException();
+        }
+        throw new IllegalArgumentException();
     }
 
-    public int[] twoSumForce(int[] nums,int target){
-            for (int i=0;i<nums.length;i++){
-                for (int j=0;j<nums.length;j++){
-                    if(i==j){
-                        continue;
-                    }
-                    if ((nums[i]+nums[j])==target){
-                        return new int[]{i,j};
-                    }
+    /**
+     * 因为快排之后原来的数据位置信息没得了，所以这种解法只能求出对应的数字，而不能获得其下标
+     */
+    public int[] twoSumNoExtraSpace(int[] nums, int target) {
+
+        Arrays.sort(nums);
+        int left = 0;
+        int right = nums.length - 1;
+
+        while (left < right) {
+            if ((nums[left] + nums[right]) > target) {
+                right--;
+            } else if ((nums[left] + nums[right] < target)) {
+                left++;
+            } else {
+                return new int[]{left, right};
+            }
+        }
+        return null;
+    }
+
+    public int[] twoSumForce(int[] nums, int target) {
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = 0; j < nums.length; j++) {
+                if (i == j) {
+                    continue;
+                }
+                if ((nums[i] + nums[j]) == target) {
+                    return new int[]{i, j};
                 }
             }
-            throw new IllegalArgumentException();
+        }
+        throw new IllegalArgumentException();
+    }
+
+
+    public static void main(String[] args) {
+        int[] a = new int[]{3, 2, 4};
+        TwoNumSum twoNumSum = new TwoNumSum();
+        twoNumSum.twoSumNoExtraSpace(a, 6);
     }
 
 }
