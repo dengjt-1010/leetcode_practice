@@ -7,17 +7,41 @@ package com.department.deng.排序算法;
  * https://www.cnblogs.com/sunshisonghit/p/4357551.html
  */
 public class TopK {
-    public static int Partition(int a[], int low, int high) {
-        a[0] = a[low];
-        int pivokey = a[low];
-        while (low < high) {
-            while (low < high && a[high] >= pivokey) --high;
-            a[low] = a[high];
-            while (low < high && a[low] <= pivokey) ++low;
-            a[high] = a[low];
+
+
+    public static int partition(int[] array, int lo, int hi) {
+        //固定的切分方式
+        int key = array[lo];
+        while (lo < hi) {
+            while (array[hi] >= key && lo < hi) {
+                hi--;
+            }
+            array[hi] = array[lo];
+
+            while (array[lo] <= key && lo < hi) {
+                lo++;
+            }
+            array[lo] = array[hi];
         }
-        a[low] = a[0];
-        return low;
+        array[lo] = key;
+        return lo;
+    }
+
+    public static void selectK(int[] array, int lo, int hi, int k) {
+        if (lo >= hi) {
+            return;
+        }
+        while (lo < hi) {
+            int index = partition(array, lo, hi);
+            if (index == k) {
+                return;
+            } else if (index < k) {
+                lo = index + 1;
+            } else {
+                hi = index - 1;
+            }
+
+        }
     }
 
     public static void display(int a[], int k) {
@@ -26,30 +50,7 @@ public class TopK {
         }
     }
 
-    /**
-     * 相比于快排，提前终止了递归。
-     */
-    public static int selectK(int a[], int start, int end, int k) {
-        int index = 0;
-        if (start < end) {
-            index = Partition(a, start, end);
-            if (index == k)//正好找到第k大的数
-            {
-                index = k;
-            } else if (index < k) {
 
-                /**
-                 * //还要从index的右边找k-index个数?????我觉得应该是k呢？？？？？
-                 */
-                index = selectK(a, index + 1, end, k);
-            } else if (index > k)//k个数都在Index的左边
-            {
-                index = selectK(a, start, index - 1, k);
-            }
-        }
-        return index;
-
-    }
 
     public static void main(String args[]) {
         int k = 5;
