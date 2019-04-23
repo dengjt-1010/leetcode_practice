@@ -3,7 +3,7 @@ package com.department.deng.排序算法;
 /**
  * Created by deng on 19-4-22.
  */
-public class 堆排 {
+public class 归并排序 {
     public static int[] sort(int[] a, int low, int high) {
 
         int mid = (low + high) / 2;

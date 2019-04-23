@@ -31,7 +31,8 @@ public class MaxWater {
 
     public int maxArea(int[] height) {
         int max = 0, left = 0, right = height.length - 1;
-        while (left < right && right < height.length) {
+
+        while (left < right && left >= 0 && right < height.length) {
             max = Math.max(max, Math.min(height[left], height[right]) * (right - left));
             if (height[left] < height[right]) {
                 left++;

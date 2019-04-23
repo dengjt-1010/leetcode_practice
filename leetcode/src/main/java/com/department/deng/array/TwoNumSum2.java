@@ -20,30 +20,24 @@ public class TwoNumSum2 {
         ListNode result=new ListNode(0);
         ListNode p1=l1,p2=l2,current=result;
 
-        int next = 0;
+        int grow = 0;
         while (p1 != null || p2 != null) {
-            if (p1 == null) {
-                current.next = new ListNode((p2.val + next) % 10);
-                current = current.next;
-                next = (p2.val + next) >= 10 ? 1 : 0;
-                p2 = p2.next;
-            } else if (p2 == null) {
-                current.next = new ListNode((p1.val + next) % 10);
-                current = current.next;
-                next = (p1.val + next) >= 10 ? 1 : 0;
-                p1 = p1.next;
+            int val = (p1 != null ? p1.val : 0) + (p2 != null ? p2.val : 0) + grow;
 
-            }else {
-                int temp = p1.val + p2.val;
-                current.next = new ListNode(((temp + next) % 10));
-                next = (temp + next) >= 10 ? 1 : 0;
-                current = current.next;
-                p1 = p1.next;
-                p2 = p2.next;
-            }
+            ListNode born = new ListNode(val % 10);
+
+            grow = val / 10;
+
+            current.next = born;
+            current = current.next;
+
+            p1 = p1 != null ? p1.next : null;
+            p2 = p2 != null ? p2.next : null;
         }
-        if (next != 0) {
-            current.next = new ListNode(next);
+
+        if (grow != 0) {
+            ListNode born = new ListNode(grow);
+            current.next = born;
         }
         return result.next;
     }

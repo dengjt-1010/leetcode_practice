@@ -12,23 +12,25 @@ import java.util.Arrays;
 public class ThreeNumSum {
 
     public int threeSumClosest(int[] nums, int target) {
+
+        if (nums == null || nums.length < 3) {
+            return 0;
+        }
         Arrays.sort(nums);
-
         int res = nums[0] + nums[1] + nums[2];
-
         for (int i = 0; i < nums.length; i++) {
             int left = i + 1;
             int right = nums.length - 1;
-            while (left < right && right < nums.length) {
-                int current = (nums[left] + nums[right] + nums[i]);
-                if (Math.abs(current - target) < Math.abs(res - target)) {
-                    res = current;
-                }
-                if (current < target) {
+
+            while (left < right && left < nums.length && right > i) {
+                int sum = nums[i] + nums[left] + nums[right];
+
+                if (sum < target) {
                     left++;
                 } else {
                     right--;
                 }
+                res = Math.abs(res - target) < Math.abs(sum - target) ? res : sum;
             }
         }
         return res;

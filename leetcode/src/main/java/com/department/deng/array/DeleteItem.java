@@ -2,6 +2,11 @@ package com.department.deng.array;
 
 /**
  * Created by deng on 19-4-12.
+ *
+ *
+ *  27. 移除元素
+ *
+ *
  * <p>
  * 给定一个数组 nums 和一个值 val，你需要原地移除所有
  * 数值等于 val 的元素，返回移除后数组的新长度。
@@ -14,18 +19,19 @@ package com.department.deng.array;
 public class DeleteItem {
 
     public int removeElement(int[] nums, int val) {
-
         if (nums == null || nums.length == 0) {
             return 0;
         }
 
         int index = 0;
+
         for (int i = 0; i < nums.length; i++) {
-            if (val != nums[i]) {
+            if (nums[i] == val) {
+                continue;
+            } else {
                 nums[index++] = nums[i];
             }
         }
-
         return index;
     }
 
@@ -34,6 +40,7 @@ public class DeleteItem {
         DeleteItem item = new DeleteItem();
 
         int[] request = {0, 1, 2, 2, 3, 0, 4, 2};
-        item.removeElement(request, 2);
+        int result = item.removeElement(request, 2);
+        System.out.println(result);
     }
 }
