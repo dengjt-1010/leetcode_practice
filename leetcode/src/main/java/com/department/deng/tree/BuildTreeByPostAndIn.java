@@ -19,22 +19,22 @@ public class BuildTreeByPostAndIn {
     private TreeNode build(int[] inorder, int inSt, int inEnd, int[] postorder, int postSt, int postEnd) {
         TreeNode root = new TreeNode(postorder[postEnd]);
 
-        if (postEnd == postSt) {
+        if (postSt == postEnd) {
             return root;
         }
 
-        int rootIndexIn = 0;
-        while (rootIndexIn < inEnd && inorder[rootIndexIn] != root.val) {
-            rootIndexIn++;
+        int rootInIndex = 0;
+        while (inorder[rootInIndex] != root.val) {
+            rootInIndex++;
         }
 
-        int leftLen = rootIndexIn - inSt;
+        int leftLength = rootInIndex - inSt;
 
-        if (leftLen > 0) {
-            root.left = build(inorder, inSt, rootIndexIn - 1, postorder, postSt, postSt + leftLen - 1);
+        if (leftLength > 0) {
+            root.left = build(inorder, inSt, rootInIndex - 1, postorder, postSt, postSt + leftLength - 1);
         }
-        if (leftLen < inEnd - inSt) {
-            root.right = build(inorder, rootIndexIn + 1, inEnd, postorder, postSt + leftLen, postEnd - 1);
+        if ((postSt + leftLength) < postEnd) {
+            root.right = build(inorder, rootInIndex + 1, inEnd, postorder, postSt + leftLength, postEnd - 1);
         }
         return root;
     }

@@ -9,6 +9,7 @@ import com.department.deng.base.TreeNode;
  */
 public class MidDepthOfTree {
 
+
     public int minDepth(TreeNode root) {
         if (root == null) {
             return 0;

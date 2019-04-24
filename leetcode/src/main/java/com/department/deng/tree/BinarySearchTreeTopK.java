@@ -13,7 +13,6 @@ import java.util.List;
 public class BinarySearchTreeTopK {
 
     List<TreeNode> list = new ArrayList<TreeNode>();
-
     public int kthSmallest(TreeNode root, int k) {
         if (root == null) {
             return 0;
@@ -27,13 +26,9 @@ public class BinarySearchTreeTopK {
         if (root == null) {
             return;
         }
-        if (root.left != null) {
-            find(root.left);
-        }
+        find(root.left);
         list.add(root);
-        if (root.right != null) {
-            find(root.right);
-        }
+        find(root.right);
     }
 
 }

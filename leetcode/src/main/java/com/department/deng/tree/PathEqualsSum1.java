@@ -4,6 +4,11 @@ import com.department.deng.base.TreeNode;
 
 /**
  * Created by deng on 19-4-14.
+ *
+ * 112. 路径总和
+ *
+ * 给定一个二叉树和一个目标和，判断该树中是否存在根节点到叶子节点的路径，这条路径上所有节点值相加等于目标和。
+ *
  */
 public class PathEqualsSum1 {
 

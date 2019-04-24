@@ -25,20 +25,20 @@ public class BuildTreeByPreAndIn {
             return root;
         }
 
-        int inRootIndex = inSt;
-        while (inRootIndex < inEnd && root.val != inorder[inRootIndex]) {
-            inRootIndex++;
-        }
-        int leftLen = inRootIndex - inSt;
-
-        if (leftLen > 0) {
-            root.left = buildCore(preorder, preSt + 1, preSt + leftLen, inorder, inSt, inRootIndex - 1);
+        int middleRootIndex = 0;
+        while (root.val != inorder[middleRootIndex]) {
+            middleRootIndex++;
         }
 
-        if ((preSt + leftLen) < preEnd) {
-            root.right = buildCore(preorder, preSt + leftLen + 1, preEnd, inorder, inRootIndex + 1, inEnd);
+        int leftLength = middleRootIndex - inSt;
+
+        if (leftLength > 0) {
+            root.left = buildCore(preorder, preSt + 1, preSt + leftLength, inorder, inSt, middleRootIndex - 1);
         }
 
+        if (middleRootIndex < inEnd) {
+            root.right = buildCore(preorder, preSt + leftLength + 1, preEnd, inorder, middleRootIndex + 1, inEnd);
+        }
         return root;
 
     }

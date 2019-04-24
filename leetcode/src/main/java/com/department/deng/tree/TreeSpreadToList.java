@@ -6,7 +6,7 @@ import com.department.deng.base.TreeNode;
  * Created by deng on 19-4-14.
  * <p>
  * 114. 二叉树展开为链表
- * <p>
+ *
  * 注意：不能使用额外的空间
  */
 public class TreeSpreadToList {

@@ -12,7 +12,8 @@ public class MaxDepthOfTree {
     public int maxDepth(TreeNode root) {
         if (root == null) {
             return 0;
-        } else if (root.left == null && root.right == null) {
+        }
+        if (root.left == null && root.right == null) {
             return 1;
         }
 

@@ -12,20 +12,20 @@ package com.department.deng.排序算法;
 public class QuickSortMethod {
 
     public static int partition(int[] array, int lo, int hi) {
-        //固定的切分方式
         int key = array[lo];
+
         while (lo < hi) {
-            while (array[hi] >= key && hi > lo) {//从后半部分向前扫描
+            if (array[hi] > key && lo < hi) {
                 hi--;
             }
             array[lo] = array[hi];
-            while (array[lo] <= key && hi > lo) {
+            if (array[lo] < key && lo < hi) {
                 lo++;
             }
             array[hi] = array[lo];
         }
-        array[lo] = key;
-        return lo;  //返回lo 或者 hi都可以
+        array[hi] = key;
+        return hi;
     }
 
     public static void sort(int[] array, int lo, int hi) {
@@ -33,7 +33,7 @@ public class QuickSortMethod {
             return;
         }
         int index = partition(array, lo, hi);
-        sort(array, lo, index - 1);
+        sort(array, lo, index);
         sort(array, index + 1, hi);
     }
 

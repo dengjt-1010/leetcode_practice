@@ -13,14 +13,14 @@ public class IsSysTree {
         return isMirror(root, root);
     }
 
-    private boolean isMirror(TreeNode node1, TreeNode node2) {
-        if (node1 == null && node2 == null) {
+    private boolean isMirror(TreeNode left, TreeNode right) {
+        if (left == null && right == null) {
             return true;
         }
-        if (node1 == null || node2 == null) {
+        if (left == null || right == null) {
             return false;
         }
-        return node1.val == node2.val && (isMirror(node1.left, node2.right)) && isMirror(node1.right, node2.left);
-    }
 
+        return left.val == right.val && isMirror(left.left, right.right) && isMirror(left.right, right.left);
+    }
 }

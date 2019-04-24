@@ -3,6 +3,7 @@ package com.department.deng.tree;
 import com.department.deng.base.TreeNode;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -24,36 +25,41 @@ public class BianLiByLayer {
      * @param root
      * @return
      */
-    public ArrayList<ArrayList<Integer>> levelOrderBottom(TreeNode root) {
-        ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
-        if (root == null) return res;
+    public List<List<Integer>> levelOrder1(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+
         Queue<TreeNode> queue = new LinkedList<TreeNode>();
         queue.add(root);
+
         while (!queue.isEmpty()) {
-            ArrayList<Integer> list = new ArrayList<Integer>();
             int size = queue.size();
+            ArrayList<Integer> layer = new ArrayList<Integer>();
             for (int i = 0; i < size; i++) {
-                TreeNode temp = queue.poll();
-                list.add(temp.val);
-                if (temp.left != null) queue.add(temp.left);
-                if (temp.right != null) queue.add(temp.right);
+                TreeNode current = queue.poll();
+                if (current != null) {
+                    queue.add(current.left);
+                    queue.add(current.right);
+                    layer.add(current.val);
+                }
             }
-            res.add(0, list);//不利用栈进行倒序,而是直接加入到0位置,实现了倒叙
+            if (layer != null && layer.size() != 0) {
+                res.add(layer);
+            }
         }
         return res;
     }
 
 
-    public List<List<Integer>> levelOrder(TreeNode root) {
+    public List<List<Integer>> levelOrder2(TreeNode root) {
         List<List<Integer>> result = new ArrayList<List<Integer>>();
 
         int depth = maxDepth(root);
-        for (int i = 0; i <= depth; i++) {
-            List<Integer> one = levelOrder(root, i);
-            if (one != null && one.size() != 0) {
-                result.add(one);
-            }
 
+        for (int i = 1; i <= depth; i++) {
+            List<Integer> values = levelOrder(root, i);
+            if (values != null && values.size() != 0) {
+                result.add(values);
+            }
         }
         return result;
     }
@@ -63,6 +69,7 @@ public class BianLiByLayer {
         if (node == null || level < 1) {
             return result;
         }
+
         if (level == 1) {
             result.add(node.val);
         }
@@ -77,9 +84,6 @@ public class BianLiByLayer {
 
         if (root == null) {
             return 0;
-        }
-        if (root.left == null && root.right == null) {
-            return 1;
         }
 
         int left = maxDepth(root.left);

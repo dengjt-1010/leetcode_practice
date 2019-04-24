@@ -12,6 +12,7 @@ import java.util.List;
  */
 public class MiddleOrderTree {
 
+
     public List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> result = new ArrayList<Integer>();
         if (root == null) {

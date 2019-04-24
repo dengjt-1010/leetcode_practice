@@ -20,25 +20,27 @@ public class 归并排序 {
 
         int[] temp = new int[high - low + 1];
 
+        int left = low;
+        int right = mid + 1;
         int index = 0;
-        int first = low;
-        int second = mid + 1;
 
-        while (index < temp.length && (first <= mid || second <= high)) {
-            if (first <= mid && second <= high) {
-                if (a[first] < a[second]) {
-                    temp[index++] = a[first++];
-                } else {
-                    temp[index++] = a[second++];
-                }
-            } else if (first <= mid) {
-                temp[index++] = a[first++];
-            } else if (second <= high) {
-                temp[index++] = a[second++];
+        while (left < right && left <= mid && right <= high) {
+            if (a[left] < a[right]) {
+                temp[index++] = a[left++];
+            } else {
+                temp[index++] = a[right++];
             }
         }
-        for (int i = 0; i <= high - low; i++) {
-            a[low + i] = temp[i];
+
+        while (left <= mid) {
+            temp[index++] = a[left++];
+        }
+
+        while (right <= high) {
+            temp[index++] = a[right++];
+        }
+        for (int i = low; i <= high; i++) {
+            a[i] = temp[i - low];
         }
     }
 
