@@ -42,7 +42,7 @@ public class BianLiByLayer {
                     layer.add(current.val);
                 }
             }
-            if (layer != null && layer.size() != 0) {
+            if (layer.size() != 0) {
                 res.add(layer);
             }
         }

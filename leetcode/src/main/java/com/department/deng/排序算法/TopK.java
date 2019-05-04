@@ -16,36 +16,34 @@ public class TopK {
             while (array[hi] >= key && lo < hi) {
                 hi--;
             }
-            array[hi] = array[lo];
+            array[lo] = array[hi];
 
             while (array[lo] <= key && lo < hi) {
                 lo++;
             }
-            array[lo] = array[hi];
+            array[hi] = array[lo];
         }
         array[lo] = key;
         return lo;
     }
 
-    public static void selectK(int[] array, int lo, int hi, int k) {
-        if (lo >= hi) {
+    private static void selectK(int a[], int left, int right, int k) {
+
+        if (left >= right) {
             return;
         }
-        while (lo < hi) {
-            int index = partition(array, lo, hi);
-            if (index == k) {
-                return;
-            } else if (index < k) {
-                lo = index + 1;
-            } else {
-                hi = index - 1;
-            }
 
+        int choose = partition(a, left, right);
+
+        if (choose < k) {
+            selectK(a, choose + 1, right, k);
+        } else if (choose > k) {
+            selectK(a, left, choose - 1, k);
         }
     }
 
     public static void display(int a[], int k) {
-        for (int i = 1; i <= k; i++) {
+        for (int i = 0; i <= k - 1; i++) {
             System.out.print(a[i] + " ");
         }
     }
@@ -54,8 +52,8 @@ public class TopK {
 
     public static void main(String args[]) {
         int k = 5;
-        int a[] = {0, 49, 38, 29, 65, 97, 76, 13, 27, 49, 22, 19};
-        if (k > 0 && k <= a.length - 1) {
+        int a[] = {49, 38, 29, 65, 97, 76, 13, 27, 49, 22, 19};
+        if (k >= 0 && k <= a.length - 1) {
             selectK(a, 1, a.length - 1, k);
             display(a, k);
         } else {

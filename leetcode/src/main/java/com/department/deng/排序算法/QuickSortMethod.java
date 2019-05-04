@@ -12,36 +12,36 @@ package com.department.deng.排序算法;
 public class QuickSortMethod {
 
 
-    public static int partition(int[] array, int lo, int hi) {
+    private static int partition(int[] request, int start, int end) {
 
-        int key = array[lo];
-        while (lo < hi) {
+        int key = request[start];
 
-            while (array[hi] >= key && lo < hi) {
-                hi--;
+        while (start < end) {
+
+            while (key < request[end] && start < end) {
+                end--;
             }
-            array[lo] = array[hi];
-
-            while (array[lo] < key && lo < hi) {
-                lo++;
+            request[start] = request[end];
+            while (key > request[start] && start < end) {
+                start++;
             }
-            array[hi] = array[lo];
+            request[end] = request[start];
         }
-        array[lo] = key;
-        return lo;
 
+        request[start] = key;
+        return start;
     }
 
-    public static void sort(int[] array, int lo, int hi) {
+    private static void sort(int[] request, int start, int end) {
 
-        if (lo >= hi) {
+        if (start >= end) {
             return;
         }
 
-        int mid = partition(array, lo, hi);
+        int mid = partition(request, start, end);
+        sort(request, start, mid - 1);
+        sort(request, mid + 1, end);
 
-        sort(array, lo, mid - 1);
-        sort(array, mid + 1, hi);
     }
 
 
