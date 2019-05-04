@@ -11,30 +11,37 @@ package com.department.deng.排序算法;
  */
 public class QuickSortMethod {
 
-    public static int partition(int[] array, int lo, int hi) {
-        int key = array[lo];
 
+    public static int partition(int[] array, int lo, int hi) {
+
+        int key = array[lo];
         while (lo < hi) {
-            if (array[hi] > key && lo < hi) {
+
+            while (array[hi] >= key && lo < hi) {
                 hi--;
             }
             array[lo] = array[hi];
-            if (array[lo] < key && lo < hi) {
+
+            while (array[lo] < key && lo < hi) {
                 lo++;
             }
             array[hi] = array[lo];
         }
-        array[hi] = key;
-        return hi;
+        array[lo] = key;
+        return lo;
+
     }
 
     public static void sort(int[] array, int lo, int hi) {
+
         if (lo >= hi) {
             return;
         }
-        int index = partition(array, lo, hi);
-        sort(array, lo, index);
-        sort(array, index + 1, hi);
+
+        int mid = partition(array, lo, hi);
+
+        sort(array, lo, mid - 1);
+        sort(array, mid + 1, hi);
     }
 
 
