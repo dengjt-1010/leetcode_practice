@@ -7,7 +7,7 @@ import com.department.deng.base.TreeNode;
  * <p>
  * 111. 二叉树的最小深度
  */
-public class MidDepthOfTree {
+public class MinDepthOfTree {
 
 
     public int minDepth(TreeNode root) {

@@ -17,24 +17,26 @@ public class BuildTreeByPostAndIn {
     }
 
     private TreeNode build(int[] inorder, int inSt, int inEnd, int[] postorder, int postSt, int postEnd) {
+
         TreeNode root = new TreeNode(postorder[postEnd]);
 
         if (postSt == postEnd) {
             return root;
         }
 
-        int rootInIndex = 0;
-        while (inorder[rootInIndex] != root.val) {
-            rootInIndex++;
+        int index = inSt;
+        int length = 0;
+        while (inorder[index] != root.val) {
+            index++;
+            length++;
         }
 
-        int leftLength = rootInIndex - inSt;
 
-        if (leftLength > 0) {
-            root.left = build(inorder, inSt, rootInIndex - 1, postorder, postSt, postSt + leftLength - 1);
+        if (length > 0) {
+            root.left = build(inorder, inSt, index - 1, postorder, postSt, postSt + length - 1);
         }
-        if ((postSt + leftLength) < postEnd) {
-            root.right = build(inorder, rootInIndex + 1, inEnd, postorder, postSt + leftLength, postEnd - 1);
+        if (postSt + length < postEnd) {
+            root.right = build(inorder, index + 1, inEnd, postorder, postSt + length, postEnd - 1);
         }
         return root;
     }

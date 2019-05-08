@@ -11,39 +11,32 @@ package com.department.deng.排序算法;
  */
 public class QuickSortMethod {
 
+    private static int partition(int a[], int low, int high) {
 
-    private static int partition(int[] request, int start, int end) {
-
-        int key = request[start];
-
-        while (start < end) {
-
-            while (key < request[end] && start < end) {
-                end--;
+        int key = a[low];
+        while (low < high) {
+            while (a[high] > key && low < high) {
+                high--;
             }
-            request[start] = request[end];
-            while (key > request[start] && start < end) {
-                start++;
+            a[low] = a[high];
+
+            while (a[low] < key && low < high) {
+                low++;
             }
-            request[end] = request[start];
+            a[high] = a[low];
         }
 
-        request[start] = key;
-        return start;
+        a[low] = key;
+        return low;
     }
 
-    private static void sort(int[] request, int start, int end) {
-
-        if (start >= end) {
-            return;
+    private static void sort(int a[], int low, int high) {
+        if (low < high) {
+            int part = partition(a, low, high);
+            sort(a, low, part - 1);
+            sort(a, part + 1, high);
         }
-
-        int mid = partition(request, start, end);
-        sort(request, start, mid - 1);
-        sort(request, mid + 1, end);
-
     }
-
 
     public static void main(String[] args) {
 

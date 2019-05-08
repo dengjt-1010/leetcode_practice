@@ -32,6 +32,13 @@ public class PathEqualsSum2 {
         return result;
     }
 
+
+    /**
+     * @param root
+     * @param sum
+     * @param list   这个方法调用，此处的list必须是新的。否则的话不同递归流程中用的是同一个list,肯定有问题。
+     * @param result
+     */
     private void find(TreeNode root, int sum, List<Integer> list, List<List<Integer>> result) {
 
         if (root == null) {

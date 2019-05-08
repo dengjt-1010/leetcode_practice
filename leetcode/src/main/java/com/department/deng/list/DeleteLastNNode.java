@@ -4,11 +4,18 @@ import com.department.deng.base.ListNode;
 
 /**
  * Created by deng on 19-4-11.
- * 删除链表中倒数第N个节点
+ * 19. 删除链表的倒数第N个节点
  */
 public class DeleteLastNNode {
 
     public ListNode removeNthFromEnd(ListNode head, int n) {
+        if (head == null) {
+            return null;
+        }
+
+        if (n == 1 && head.next == null) {
+            return null;
+        }
 
         ListNode result = new ListNode(0);
         result.next = head;
@@ -16,19 +23,23 @@ public class DeleteLastNNode {
         ListNode first = result;
         ListNode second = result;
 
-        int step = 0;
-        while (first.next != null) {
-            if (step >= n) {
-                second = second.next;
-            }
-            step++;
+        while (n > 0 && first.next != null) {
+            n--;
             first = first.next;
         }
-        if (second != result) {
-            ListNode ne = second.next.next;
-            second.next.next = null;
-            second.next = ne;
+
+        while (first.next != null) {
+            first = first.next;
+            second = second.next;
         }
+
+        if (second != null) {
+            ListNode nextNext = second.next.next;
+            second.next.next = null;
+            second.next = nextNext;
+
+        }
+
         return result.next;
     }
 
@@ -39,7 +50,7 @@ public class DeleteLastNNode {
         ListNode result3 = new ListNode(3);
         ListNode result4 = new ListNode(4);
         ListNode result5 = new ListNode(5);
-//        result1.next=result2;
+        result1.next = result2;
 //        result2.next=result3;
 //        result3.next=result4;
 //        result4.next=result5;
